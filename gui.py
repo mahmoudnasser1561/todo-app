@@ -1,5 +1,8 @@
 import functions
 import  FreeSimpleGUI as Sg
+import  time
+
+clock = Sg.Text('', key='clock')
 
 label = Sg.Text("Type in a to-do")
 input_box = Sg.InputText(tooltip="Enter a todo", key="todo")
@@ -12,14 +15,19 @@ exit_button = Sg.Button("Exit")
 complete_button = Sg.Button("Complete")
 
 window = Sg.Window("My To-Do App",
-                   layout=[[label],
-                           [input_box, add_button],
-                           [list_box, edit_button, complete_button],
+                   layout=[
+                            [clock],
+                            [label],
+                            [input_box, add_button],
+                            [list_box, edit_button, complete_button],
                             [exit_button]],
                    font=("Helvetica", 15))
 
 while True:
-    event, values = window.read()
+    event, values = window.read(timeout=200)
+    now = time.strftime("%b %d, %Y %H:%M:%S")
+    window['clock'].update(value=now)
+
     print(event)
 
     match event:
