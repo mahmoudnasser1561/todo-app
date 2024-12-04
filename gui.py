@@ -39,17 +39,20 @@ while True:
                 index = todos.index(todo_to_edit)
                 todos[index] = new_todo + "\n"
                 functions.write_todos(todos)
+                window["todos"].update(values=todos)
             except IndexError:
-                print("please select an Item")
-
-            window["todos"].update(values=todos)
+                # print("please select an Item")
+                Sg.popup("Please Select an Item First.", font=("Helvetica", 20))
         case "Complete":
-            todo_to_complete = values["todos"][0]
-            todos = functions.get_todos()
-            todos.remove(todo_to_complete)
-            functions.write_todos(todos)
-            window["todo"].update(value='')
-            window["todos"].update(values=todos)
+            try:
+                todo_to_complete = values["todos"][0]
+                todos = functions.get_todos()
+                todos.remove(todo_to_complete)
+                functions.write_todos(todos)
+                window["todo"].update(value='')
+                window["todos"].update(values=todos)
+            except IndexError:
+                Sg.popup("Please select an Item First", font=("Helvetica", 20))
         case "Exit":
             break
         case "todos":
