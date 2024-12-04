@@ -1,4 +1,4 @@
-import functions
+from src import functions
 import  FreeSimpleGUI as Sg
 import  time
 
